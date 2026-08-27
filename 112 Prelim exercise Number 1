@@ -4,7 +4,7 @@
 * Acitivty Name and Number : Prelim Exercise Number 1
 */
 
-import java.lang.*;                    
+import java.lang.*;                                  //import statement          
 
 class Exercise1 {                                   // class declaration
     public static void main(String[] args) {        // main method declaration

@@ -1,0 +1,55 @@
+/*
+* Name: PERALTA, SIRGIN JACOB I.
+* Programming Date: August 27, 2026
+* Activity Name and Number: Prelim Exercise Number 3
+
+-----------------------------------------------------------------
+
+Input: base and heeight of a right triangle(base, height)
+Processes:     Display the data associated with the right triangle
+                         Compute for the radius of the circle 
+Output: hypotenuse
+
+------------------------------------------------------------------
+
+Algorithm:
+1. Assign the base and height of the right triangle
+2. Compute the hypotenuse  = square root of (base^2+height^2)
+3. Show the given base and height of the right triangle
+4. Show the computed hypotenuse of the right triangle
+
+-------------------------------------------------------------------
+*/
+
+import java.lang.*;
+
+public class RightTriangle2 {                               //class declaration
+    public static void main (String [ ] args){        //main method declaration
+        
+        //Assigning data types
+        double base;
+        double height;
+        double hypotenuse;
+        double baseSquared;
+        double heightSquared;
+        
+        //Assigning values
+        base = 3;
+        height = 4;
+        baseSquared = Math.pow(base, 2);
+        heightSquared = Math.pow(height, 2);
+        hypotenuse = Math.sqrt(baseSquared + heightSquared);
+        
+        //Display values related to the right triangle
+        System.out.println();
+        System.out.println("The Dimensions of the Right Triangle are:");
+        System.out.println("Base = " + base);
+        System.out.println("height = " + height);
+        System.out.println();
+        
+        //Compute for the hypotenuse of the right triangle
+        System.out.println("The hypotenuse of the Right Triangle is " + hypotenuse);
+        
+        system.exit(0);        // terminate method
+    }                                     // end of main method
+}                                         // end of exercise 3.2

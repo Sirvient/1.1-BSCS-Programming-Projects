@@ -1,0 +1,49 @@
+/*
+* Name: PERALTA, SIRGIN JACOB I.
+* Programming Date: Augsust 27,2026
+* Activity Name and Number: Prelim Exercise Number 2
+
+-----------------------------------------------------------------
+Input: Radius of a circle (Radius)
+
+Processes: Compute the circumference of the circle
+Compute the area of the circle
+Display results
+Output: circumference, area
+
+------------------------------------------------------------------
+
+Algorithm:
+1. Assign the Radius of the circle
+2. Compute the circumference : circumference = 2*(3.1416)*Radius
+3. Compute the area: area = PI*Radius*Radius
+4. Show the Radius of the circle
+5. Show the circumference of the circle
+6. Show the area of the circle
+
+-------------------------------------------------------------------
+*/
+
+public class Circle {
+    public static void main(String [] args) {
+        int Radius;
+        double Circumference;
+        double AreaOfCircle;
+
+        Radius = 10;
+        Circumference = 2 * 3.1416 * Radius;
+        AreaOfCircle = 3.1416 * Radius * Radius;
+
+        System.out.println("");
+        System.out.println("");
+        System.out.println("**********************************************************");
+        System.out.println("*                                                        *");
+        System.out.println("*                                                        *");
+        System.out.println("*               Radius of circle is " + Radius + "                   *");
+        System.out.println("*           Circumference of circle is " + Circumference + "            *");
+        System.out.println("*                Area of circle is " + AreaOfCircle + "                *");
+        System.out.println("*                                                        *");
+        System.out.println("*                                                        *");
+        System.out.println("**********************************************************");
+    }
+}

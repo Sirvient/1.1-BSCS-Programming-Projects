@@ -4,8 +4,8 @@
 * Activity Name and Number: Prelim Exercise Number 2
 
 -----------------------------------------------------------------
-Input: Radius of a circle (Radius)
 
+Input: Radius of a circle (Radius)
 Processes: Compute the circumference of the circle
 Compute the area of the circle
 Display results
@@ -24,8 +24,10 @@ Algorithm:
 -------------------------------------------------------------------
 */
 
-public class Circle {
-    public static void main(String [] args) {
+import java.lang.*;                                  //import statement          
+
+public class Circle {                                // class declaration
+    public static void main(String [] args) {        // main method declaration
         int Radius;
         double Circumference;
         double AreaOfCircle;
@@ -45,5 +47,7 @@ public class Circle {
         System.out.println("*                                                        *");
         System.out.println("*                                                        *");
         System.out.println("**********************************************************");
-    }
-}
+
+        system.exit(0);                             // terminate program
+    }                                               // end of main method
+}                                                    //end of exercise 2.1

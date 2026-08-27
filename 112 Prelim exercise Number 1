@@ -4,8 +4,10 @@
 * Acitivty Name and Number : Prelim Exercise Number 1
 */
 
-class Exercise1 {                                   // import statement
-    public static void main(String[] args) {        // main method class
+import java.lang.*;                    
+
+class Exercise1 {                                   // class declaration
+    public static void main(String[] args) {        // main method declaration
         System.out.println("*****************************************");
         System.out.println("*                                       *");
         System.out.println("*                                       *");

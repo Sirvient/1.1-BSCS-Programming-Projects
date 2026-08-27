@@ -1,74 +1,76 @@
 /*
 * Name: PERALTA, SIRGIN JACOB I.
-* Programming Date: Augsust 27,2026
+* Programming Date: August 27,2026
 * Activity Name and Number: Prelim Exercise Number 2
 
 -----------------------------------------------------------------
 
-Create a program that computes and shows the perimeter and the area of a rectangle with a given length and width. 
+Create a program that computes and shows the perimeter and the area of a Right Triangle with a given base,height and hypotenuse. Name the class as RightTriangle. Show the appropriate algorithm.
 
-Name the file as Rectangle.java (note: make sure to place the file in the appropriate location). 
+Take note that a right triangle has a base and a height. The perimeter of a right triangle is base + height + hypotenuse. The theoretical formula for computing the area of a right triangle is (1/2) * base * height. 
 
-Show the appropriate algorithm in a multiline comment before the class declaration (i.e. The same way as done with the Circle class). 
-
-Take note that a rectangle has a length and a width. 
-
-Instead of perimeter, a rectangle has a perimeter. The perimeter of a rectangle is computed as 2*length + 2*width. 
-
-The area of a rectangle is length * width.
+Save the source code in the appropriate location.
 
 ------------------------------------------------------------------
 
-Input: Length and width of a rectangle (length, width)
-Processes:  Compute the perimeter of the rectangle
-            Compute the area of the rectangle
+Input: base, height and hypotenuse of a right triangle (base, height, hypotenuse)
+Processes:  Compute the perimeter of the right triangle
+            Compute the area of the right triangle
 Display results
 Output: perimeter, area
 
 ------------------------------------------------------------------
 
 Algorithm:
-1. Assign the length and width of the rectangle
-2. Compute the perimeter : perimeter = 2*length + 2*width
-3. Compute the area: area = length*width
-4. Show the length and width of the rectangle
-5. Show the perimeter of the rectangle
-6. Show the area of the rectangle
+1. Assign the side of the right triangle
+2. Compute the perimeter : perimeter = base + height + hypotenuse
+3. Compute the area: area = (1/2) * base * height
+4. Show the side of the right triangle
+5. Show the perimeter of the right triangle
+6. Show the area of the right triangle
 
 -------------------------------------------------------------------
 */
 
-public class Rectangle {
-    public static void main(String [] args) {
-        int length;
-        int width;
+import java.lang.*;
+
+public class RightTriangle {                            // class declaration
+    public static void main(String [] args) {           // main method declaration
+        int base;
+        int height;
+        int hypotenuse;
         double perimeter;
-        double areaOfRectangle;
+        double areaOfRightTriangle;
 
-        length = 10;
-        width = 15;
-        perimeter = 2*length + 2*width;
-        areaOfRectangle = length*width;
+        base = 3;
+        height = 4;
+        hypotenuse = 5;
+        perimeter = base + height + hypotenuse;
+        areaOfRightTriangle = 0.5 * (base * height);
 
-        System.out.println("");
-        System.out.println("");
-        System.out.println("**********************************************************");
-        System.out.println("*                                                        *");
-        System.out.println("*                                                        *");
+        System.out.println();
+        System.out.println();
+        System.out.println("**************************************************************");
+        System.out.println("*                                                            *");
+        System.out.println("*                                                            *");
 
-        // Dimensions of the rectangle
-        System.out.println("*      Dimensions of the rectangle are the following:    *");
-        System.out.println("*                       Length = " + length + "                      *");
-        System.out.println("*                        Width = " + width + "                      *");
-        System.out.println("*                                                        *");
+        // Dimensions of the right triangle
+        System.out.println("*  The dimensions of the right triangle are the following:   *");
+        System.out.println("*                          base = " + base +"                          *");
+        System.out.println("*                         height = " + height +"                         *");
+        System.out.println("*                       hypotenuse = " + hypotenuse +"                       *");
+        System.out.println("*                                                            *");
 
-        //Computation of the Perimeter of the rectangle
-        System.out.println("*           Perimeter of the rectangle is " + perimeter + "           *");
+        //Computation of the Perimeter of the right triangle
+        System.out.println("*         Perimeter of the right triangle is " + perimeter + "            *");
 
-        //Computation of the Area of the rectangle
-        System.out.println("*             Area of the rectangle is " + areaOfRectangle + "             *");
-        System.out.println("*                                                        *");
-        System.out.println("*                                                        *");
-        System.out.println("**********************************************************");
-    }
-}
+        //Computation of the Area of the right triangle
+        System.out.println("*             Area of the right triangle is " + areaOfRightTriangle + "              *");
+
+        System.out.println("*                                                            *");
+        System.out.println("*                                                            *");
+        System.out.println("**************************************************************");
+
+        System.exit(0);                 // terminate program
+    }                                          // end of main method
+}                                               // end of exercise 2.4

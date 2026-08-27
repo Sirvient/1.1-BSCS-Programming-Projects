@@ -1,0 +1,70 @@
+/*
+* Name: PERALTA, SIRGIN JACOB I.
+* Programming Date: Augsust 27,2026
+* Activity Name and Number: Prelim Exercise Number 2
+
+-----------------------------------------------------------------
+
+Create a program that computes and shows the perimeter and the area of a rectangle with a given length and width. Name the file as Rectangle.java (note: make sure to place the file in the appropriate location). 
+
+Show the appropriate algorithm in a multiline comment before the class declaration (i.e. The same way as done with the Circle class). 
+
+Take note that a rectangle has a length and a width. 
+Instead of perimeter, a rectangle has a perimeter. The perimeter of a rectangle is computed as 2*length + 2*width. 
+The area of a rectangle is length * width.
+
+------------------------------------------------------------------
+
+Input: Length and width of a rectangle (length, width)
+Processes:  Compute the perimeter of the rectangle
+            Compute the area of the rectangle
+Display results
+Output: perimeter, area
+
+------------------------------------------------------------------
+
+Algorithm:
+1. Assign the length and width of the rectangle
+2. Compute the perimeter : perimeter = 2*length + 2*width
+3. Compute the area: area = length*width
+4. Show the length and width of the rectangle
+5. Show the perimeter of the rectangle
+6. Show the area of the rectangle
+
+-------------------------------------------------------------------
+*/
+
+public class Rectangle {
+    public static void main(String [] args) {
+        int length;
+        int width;
+        double perimeter;
+        double areaOfRectangle;
+
+        length = 10;
+        width = 15;
+        perimeter = 2*length + 2*width;
+        areaOfRectangle = length*width;
+
+        System.out.println("");
+        System.out.println("");
+        System.out.println("**********************************************************");
+        System.out.println("*                                                        *");
+        System.out.println("*                                                        *");
+
+        // Dimensions of the rectangle
+        System.out.println("*      Dimensions of the rectangle are the following:    *");
+        System.out.println("*                       Length = " + length + "                      *");
+        System.out.println("*                        Width = " + width + "                      *");
+        System.out.println("*                                                        *");
+
+        //Computation of the Perimeter of the rectangle
+        System.out.println("*           perimeter of the rectangle is " + perimeter + "           *");
+
+        //Computation of the Area of the rectangle
+        System.out.println("*             Area of the rectangle is " + areaOfRectangle + "             *");
+        System.out.println("*                                                        *");
+        System.out.println("*                                                        *");
+        System.out.println("**********************************************************");
+    }
+}

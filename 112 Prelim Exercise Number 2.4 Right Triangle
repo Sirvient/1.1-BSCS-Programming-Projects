@@ -1,6 +1,6 @@
 /*
 * Name: PERALTA, SIRGIN JACOB I.
-* Programming Date: Augsust 27,2026
+* Programming Date: August 27,2026
 * Activity Name and Number: Prelim Exercise Number 2
 
 -----------------------------------------------------------------
@@ -32,8 +32,10 @@ Algorithm:
 -------------------------------------------------------------------
 */
 
-public class RightTriangle {
-    public static void main(String [] args) {
+import java.lang.*;
+
+public class RightTriangle {                            // class declaration
+    public static void main(String [] args) {           // main method declaration
         int base;
         int height;
         int hypotenuse;
@@ -44,10 +46,10 @@ public class RightTriangle {
         height = 4;
         hypotenuse = 5;
         perimeter = base + height + hypotenuse;
-        areaOfRightTriangle = (1/2) * base * height;
+        areaOfRightTriangle = 0.5 * (base * height);
 
-        System.out.println("");
-        System.out.println("");
+        System.out.println();
+        System.out.println();
         System.out.println("**************************************************************");
         System.out.println("*                                                            *");
         System.out.println("*                                                            *");
@@ -68,5 +70,7 @@ public class RightTriangle {
         System.out.println("*                                                            *");
         System.out.println("*                                                            *");
         System.out.println("**************************************************************");
-    }
-}
+
+        System.exit(0);                 // terminate program
+    }                                          // end of main method
+}                                               // end of exercise 2.4

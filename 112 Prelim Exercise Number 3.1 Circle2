@@ -1,0 +1,53 @@
+/*
+* Name: PERALTA, SIRGIN JACOB I.
+* Programming Date: August 27, 2026
+* Activity Name and Number: Prelim Exercise Number 3
+
+-----------------------------------------------------------------
+
+Input: area of a circle (area)
+Processes: Display the data associated with the circle
+                          Compute for the radius of the circle 
+Output: radius
+
+------------------------------------------------------------------
+
+Algorithm:
+1. Assign the area of the circle
+2. Compute the radius: radius = square root of (area/PI)
+3. Show the given area of a circle
+4. Show the computed radius of the circle with the given area
+
+-------------------------------------------------------------------
+*/
+
+import java.lang.*;
+
+public class Circle2 {																 // class declaration
+    public static void main (String [ ] args) {							// main method declaration
+
+			// Assign data types
+            double radius;
+            double area;
+    
+			// Assign values
+            area = 100.0;
+            radius = Math.sqrt(area/Math.PI);
+            
+            System.out.println( );
+            System.out.println( );
+            System.out.println(" ********************************************************");
+
+
+        	// Display area of the circle
+             System.out.println(" *           Given area of the circle = " + area + "           *");
+
+        	// Computation of the radius of the circle
+             System.out.println(" *  Computed radius of the circle = " + radius + "   *");
+             
+             
+             System.out.println(" ********************************************************");
+             System.exit(0);            //method termination
+             
+    }									 	 	// end of main method																		
+}							 					 // end of exercise 3.1

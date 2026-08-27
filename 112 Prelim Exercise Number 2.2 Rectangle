@@ -63,7 +63,7 @@ public class Rectangle {
         System.out.println("*                                                        *");
 
         //Computation of the Perimeter of the rectangle
-        System.out.println("*           perimeter of the rectangle is " + perimeter + "           *");
+        System.out.println("*           Perimeter of the rectangle is " + perimeter + "           *");
 
         //Computation of the Area of the rectangle
         System.out.println("*             Area of the rectangle is " + areaOfRectangle + "             *");

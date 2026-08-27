@@ -1,53 +1,77 @@
 /*
 * Name: PERALTA, SIRGIN JACOB I.
-* Programming Date: Augsust 27,2026
+* Programming Date: August 27,2026
 * Activity Name and Number: Prelim Exercise Number 2
 
 -----------------------------------------------------------------
 
-Input: Radius of a circle (Radius)
-Processes: Compute the circumference of the circle
-Compute the area of the circle
+Create a program that computes and shows the perimeter and the area of a Right Triangle with a given base,height and hypotenuse. Name the class as RightTriangle. Show the appropriate algorithm.
+
+Take note that a right triangle has a base and a height. The perimeter of a right triangle is base + height + hypotenuse. The theoretical formula for computing the area of a right triangle is (1/2) * base * height. 
+
+Save the source code in the appropriate location.
+
+------------------------------------------------------------------
+
+Input: base, height and hypotenuse of a right triangle (base, height, hypotenuse)
+Processes:  Compute the perimeter of the right triangle
+            Compute the area of the right triangle
 Display results
-Output: circumference, area
+Output: perimeter, area
 
 ------------------------------------------------------------------
 
 Algorithm:
-1. Assign the Radius of the circle
-2. Compute the circumference : circumference = 2*(3.1416)*Radius
-3. Compute the area: area = PI*Radius*Radius
-4. Show the Radius of the circle
-5. Show the circumference of the circle
-6. Show the area of the circle
+1. Assign the side of the right triangle
+2. Compute the perimeter : perimeter = base + height + hypotenuse
+3. Compute the area: area = (1/2) * base * height
+4. Show the side of the right triangle
+5. Show the perimeter of the right triangle
+6. Show the area of the right triangle
 
 -------------------------------------------------------------------
 */
 
-import java.lang.*;                                  //import statement          
+import java.lang.*;
 
-public class Circle {                                // class declaration
-    public static void main(String [] args) {        // main method declaration
-        int Radius;
-        double Circumference;
-        double AreaOfCircle;
+public class RightTriangle {                            // class declaration
+    public static void main(String [] args) {           // main method declaration
+        int base;
+        int height;
+        int hypotenuse;
+        double perimeter;
+        double areaOfRightTriangle;
 
-        Radius = 10;
-        Circumference = 2 * 3.1416 * Radius;
-        AreaOfCircle = 3.1416 * Radius * Radius;
+        base = 3;
+        height = 4;
+        hypotenuse = 5;
+        perimeter = base + height + hypotenuse;
+        areaOfRightTriangle = 0.5 * (base * height);
 
-        System.out.println("");
-        System.out.println("");
-        System.out.println("**********************************************************");
-        System.out.println("*                                                        *");
-        System.out.println("*                                                        *");
-        System.out.println("*               Radius of circle is " + Radius + "                   *");
-        System.out.println("*           Circumference of circle is " + Circumference + "            *");
-        System.out.println("*                Area of circle is " + AreaOfCircle + "                *");
-        System.out.println("*                                                        *");
-        System.out.println("*                                                        *");
-        System.out.println("**********************************************************");
+        System.out.println();
+        System.out.println();
+        System.out.println("**************************************************************");
+        System.out.println("*                                                            *");
+        System.out.println("*                                                            *");
 
-        system.exit(0);                             // terminate program
-    }                                               // end of main method
+        // Dimensions of the right triangle
+        System.out.println("*  The dimensions of the right triangle are the following:   *");
+        System.out.println("*                          base = " + base +"                          *");
+        System.out.println("*                         height = " + height +"                         *");
+        System.out.println("*                       hypotenuse = " + hypotenuse +"                       *");
+        System.out.println("*                                                            *");
+
+        //Computation of the Perimeter of the right triangle
+        System.out.println("*         Perimeter of the right triangle is " + perimeter + "            *");
+
+        //Computation of the Area of the right triangle
+        System.out.println("*             Area of the right triangle is " + areaOfRightTriangle + "              *");
+
+        System.out.println("*                                                            *");
+        System.out.println("*                                                            *");
+        System.out.println("**************************************************************");
+
+        System.exit(0);                 // terminate program
+    }                                          // end of main method
+}                                               // end of exercise 2.4
 }                                                    //end of exercise 2.1

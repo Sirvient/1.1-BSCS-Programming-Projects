@@ -32,8 +32,10 @@ Algorithm:
 -------------------------------------------------------------------
 */
 
-public class Square {
-    public static void main(String [] args) {
+import java.lang.*;
+
+public class Square {                                   // class declaration
+    public static void main(String [] args) {           // main method declaration
         int side;
         double perimeter;
         double areaOfSquare;
@@ -50,7 +52,7 @@ public class Square {
 
         // Dimensions of the square
         System.out.println("*               The side of a square is " + side + "               *");
-        
+
         System.out.println("*                                                        *");
 
         //Computation of the Perimeter of the square
@@ -58,9 +60,11 @@ public class Square {
 
         //Computation of the Area of the square
         System.out.println("*              Area of the square is " + areaOfSquare + "               *");
-        
+
         System.out.println("*                                                        *");
         System.out.println("*                                                        *");
         System.out.println("**********************************************************");
-    }
-}
+
+        System.exit(0);         // terminate program
+    }                                 // end of main method
+}                                     // end of exercise 2.3

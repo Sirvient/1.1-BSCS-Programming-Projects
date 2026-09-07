@@ -1,0 +1,74 @@
+/*
+Name: PERALTA, SIRGIN JACOB I.
+Programming Date: August 27, 2026
+Activity Name and Number: Prelim Exercise Number 4
+
+Problem:
+Modify the program so that the values for the length and the width will be read
+from the keyboard at run time through the Scanner class (i.e. The values of length and width will be entered
+when the program is executed).
+
+Appropriate prompt messages (e.g. “Enter the length of the
+rectangle: ” and “Enter the width of the rectangle: ”) should be provided.
+
+Provide the content of the comment pertaining to the details of this program
+at the beginning of the file (name, program info, problem, analysis, algorithm, etc.).
+
+Analysis:
+Input: length and width of therectangle
+Processes:
+Read the length and width of the rectangle
+Compute the perimeter of the rectangle
+Compute the area of the rectangle
+Display results
+Output: perimeter and area
+
+Algorithm:
+1. Read/Accept the length and width of a rectangle
+2. Compute the perimeter: 2length + 2width
+3. Compute the area: area = length * width
+4. Show the length and width of the rectangle
+5. Show the perimeter of the rectangle
+6. Show the area of the rectangle
+*/
+
+import java.util.Scanner;
+
+public class Rectangle3 {
+    public static void main (String [] args) {
+// Make an object of Scanner that represents the keyboard
+
+        Scanner input = new Scanner(System.in);
+
+        int length;
+        int width;
+        int perimeter;
+        int area;
+
+        System.out.print("Enter the length of the rectangle: ");
+        length = input.nextInt();
+
+        System.out.print("Enter the length of the rectangle: ");
+        width = input.nextInt();
+
+        perimeter = length + length + width + width;
+        area = length*width;
+
+        System.out.println("");
+        System.out.println("The length of the rectangle is: " + length);
+        System.out.println("The width of the rectangle is: " + width);
+
+        System.out.println("");
+        System.out.println("The perimeter of the rectangle is: " + perimeter);
+        System.out.println("The area of the rectangle is: " + area);
+
+
+
+
+    } // end of main method
+} // end of class
+
+
+
+
+//System.out.printf("The average us %.2f");

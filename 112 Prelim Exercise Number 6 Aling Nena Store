@@ -1,0 +1,109 @@
+/*
+Name: PERALTA, SIRGIN JACOB I.
+Programming Date: September 14, 2026
+Activity Name and Number: Prelim Exercise Number 5
+---------------------------------------------------------
+Write a Java program that will be used at the check-out counter of Aling Nena's Sari-Sari Store with the following
+assumptions.
+
+Aling Nena's customers always buy only one type of product, but may buy one or more pieces of the
+said product. For example, a customer may buy a dozen eggs.
+
+Depending on the customer, Aling Nena may decide to give the customer a discount, expressed as an
+integer value from 1 to 100, which indicates the percentage deducted from the total amount of the customer's
+purchase. For example, assuming that eggs cost P5.00 a piece, a dozen eggs would cost a total of P60.00, and if
+the customer is then given a 10 percent discount, then the customer will have to pay only P54.00 for one dozen
+of eggs. Customers who are not entitled to discounts are given zero (0) percent discount. Aling Nena's
+customers always pay in cash, and the cash amount tendered is always greater than or equal to the total purchase
+amount. Your program must calculate the change given to the customer.
+
+The filename of your source code for this requirement should be AlingNenaStore.java. Make sure
+that this file will be stored in the proper location.
+---------------------------------------------------------
+Input:  Product Type
+        Quantity
+        Price
+        Discount
+
+Processes:  Indicate the Product type bought
+            Compute for the Total Price Bought by the customer
+            Compute for the discounted price given by Aling Nena
+
+Output: Product Type
+        Quantity
+        Price
+        Total Price
+        Discount
+        Discounted Price
+---------------------------------------------------------
+Algorithm:
+1. Read and accept the values associated with the customer's order
+2. Compute for the Total Price Bought by the customer
+3. Read and accept the value when Aling Nena will give a discount
+4. Compute for the discounted price given by Aling Nena
+5. Show the product type, quantity, price
+6. Show the total Price
+7. Show the Discount and Discounted Price
+*/
+
+import java.util.Scanner;
+
+public class AlingNenaStore{
+    public static void main (String[] args){
+
+        //declare Scanner
+        Scanner input = new Scanner (System.in);
+
+        //declare values
+        String product;
+        double quantity;
+        double unitPrice;
+        double discount;
+        double cashTendered;
+
+        double totalPurchaseAmount;
+        double totalDiscount;
+        double amountToBePaid;
+        double change;
+
+        //INPUT SECTION
+        //product input
+        System.out.print("Please enter product name: ");
+        product = input.next();
+
+        //quantity input
+        System.out.print("Please enter amount/quantity: ");
+        quantity = input.nextDouble();
+
+        //unitPrice input
+        System.out.print("Please enter unitPrice: ");
+        unitPrice = input.nextDouble();
+
+        //discount input
+        System.out.print("Please enter Discount: ");
+        discount = input.nextDouble();
+
+        //cashTendered input
+        System.out.print("Please enter Cash Tendered: ");
+        cashTendered = input.nextDouble();
+
+        System.out.println("-------------------------------");
+
+        //OUTPUT SECTION
+        //compute and display for the totalPurchaseAmount
+        totalPurchaseAmount = quantity*unitPrice;
+        System.out.println("Total Purchase Amount: " + totalPurchaseAmount);
+
+        //compute and display for the totalPurchaseAmount
+        totalDiscount = totalPurchaseAmount*(discount/100);
+        System.out.println("Total Discount: " + totalDiscount);
+
+        //compute for the amountToBePaid
+        amountToBePaid = totalPurchaseAmount-totalDiscount;
+        System.out.println("Amount To Be Paid: " + amountToBePaid);
+
+        //compute for the customer's change
+        change = cashTendered-amountToBePaid;
+        System.out.println("Change: " + change);
+    }
+}

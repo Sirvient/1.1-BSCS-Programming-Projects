@@ -1,0 +1,171 @@
+/*
+Name: PERALTA, SIRGIN JACOB I.
+Date: September 28, 2026
+Activity Name and Number: Midterm Exercise 1B
+-----------------------------------------------
+Problem:
+Suppose the prelim grade for a student is computed as follows:
+Given a student’s Total Quiz Score, the student’s Examination Score, the Perfect Quiz score, and the
+Perfect Examination Score, the Prelim Grade is computed by using the following formulas:
+
+Quiz Grade = (Total Quiz Score) / (Perfect Quiz Score) * 50 + 50.
+Exam Grade = (Examination Score) / (Perfect Examination Score) * 50 + 50.
+Prelim Grade = (Quiz Grade + Exam Grade)/2
+and if the computed Prelim Grade is more than 99, the
+Prelim Grade is set to 99 but if the computed Prelim Grade is less than 65,
+the Prelim Grade is set to 65.
+Develop a computer program for the computation of a Prelim Grade based on the above formulas.
+The program will allow the computer to accept a student’s Total Quiz Score, a student’s Examination
+Score, the Perfect Total Quiz Score and the Perfect Examination Score. The computer will then show
+the corresponding grade. In addition, the remark “PASSED” will be given if the grade is at least 75
+and the remark “FAILED” will be given if the grade is less than 75. Sample run1
+
+Enter the Perfect Quiz Score: 100
+Enter the Perfect Examination Score: 100
+Enter a student’s quiz score: 100
+Enter a student’s examination score: 100
+Grade = 99 Remark: PASSED
+
+Sample run 2
+Enter the Perfect Quiz Score: 200
+Enter the Perfect Examination Score: 10
+Enter a student’s quiz score: 10
+Enter a student’s examination score: 1
+Grade = 65 Remark: FAILED
+
+Additional Instructions:
+a) Use while statements instead of do-while statements.
+b) Aside from being not greater than the perfect quiz score, the quiz score entered must not be negative.
+If the user enters a negative quiz score, display an appropriate error message and allow the user to enter a new value.
+c) Aside from being not greater than the perfect exam score, the exam score entered must not be negative.
+If the user enters a negative exam score, display an appropriate error message and allow the user to enter a new value.
+d) Use if-else statements where appropriate.
+----------------------------------------------------------------------------------------
+Analysis of the Programming Problem
+Inputs: Total Quiz Score, Examination Score, Perfect Quiz Score, Perfect Exam Score
+Processes:
+1. Read the scores
+2. Compute the grade for the quiz
+3. Compute the grade for the exam
+4. Compute the Prelim Grade
+5. Display the grades and a remark
+Outputs: Prelim Grade, Remark
+-----------------------------------------------------------------------------------------
+Algorithm for the program.
+a. Let quizScore be a variable to hold the Total Quiz Score
+b. Let examScore be a variable to hold the Examination Score
+c. Let perfectQuizScore be a variable to hold the Perfect Quiz Score
+d. Let perfectExamScore a variable to hold the Perfect Exam Score
+e. Let quizGrade be a variable to hold the Quiz Grade. f. Let examGrade be a variable to hold the Exam Grade
+g. Let prelimGrade be a variable to hold the Prelim Grade
+h. Read the value of perfectQuizScore
+i. Read the value of perfectExamScore
+j. Read the value of quizScore
+k. Read the score for the examScore
+l. quizGrade = quizScore / perfectQuizScore * 50 + 50
+m. examGrade = examScore / perfectExamScore * 50 +50
+n. prelimGrade = (quizGrade + examGrade)/2
+o. If prelimGrade is greater than 99 then set prelimGrade to 99
+p. If prelimGrade is less than 65 then set prelimGrade to 65
+q. If prelimGrade is greater than or equal to 75 then display the grade together with the
+remark “PASSED”. r. If prelimGrade is less than 75 then display the grade together with the remark “FAILED” Required:
+Complete the following Java program for the programming problem by replacing each blank line by
+the appropriate keyword, expression or statement
+ */
+
+import java.util.Scanner;
+public class MidtermExercise1B {
+    public static void main(String[] args) {
+        //Scanner declaration
+        Scanner input = new Scanner(System.in);
+
+        //assigning values
+        int totalExamScore;
+        int totalQuizScore;
+        int quizScore;
+        int examScore;
+        double examGrade;
+        double quizGrade;
+        double prelimGrade;
+
+        //Read and accept the perfect total quiz score wherein score cannot be lower than zero. Accepts another input.
+        System.out.print("Enter perfect total quiz score: ");
+        totalQuizScore = Integer.parseInt(input.nextLine());
+        while (totalQuizScore < 0) {
+            System.out.println("--- Invalid Value! Value must be greater than 0. ---");
+            System.out.print("Enter perfect total quiz Score: ");
+            totalQuizScore = Integer.parseInt(input.nextLine());
+        }
+
+        //Read and accept the perfect total exam score wherein score cannot be lower than zero. Accepts another input.
+        System.out.print("Enter perfect total exam Score: ");
+        totalExamScore = Integer.parseInt(input.nextLine());
+        while (totalExamScore < 0) {
+            System.out.println("--- Invalid Value! Value must be greater than 0. ---");
+            System.out.print("Enter perfect total exam Score: ");
+            totalExamScore = Integer.parseInt(input.nextLine());
+        }
+
+        /*Read and accept the student's quiz score wherein score cannot be lower than zero and not greater than
+        the perfect total quiz score. Accepts another input.*/
+        System.out.print("Enter student's quiz score: ");
+        quizScore = Integer.parseInt(input.nextLine());
+        while (quizScore < 0 || quizScore > totalQuizScore) {
+            if (quizScore < 0) {
+                System.out.println("--- Invalid Value! Value must be greater than 0. ---");
+                System.out.print("Enter student's quiz score: ");
+                quizScore = Integer.parseInt(input.nextLine());
+            } else {
+                System.out.println("--- Invalid Value! Value cannot exceed the Perfect Total Quiz Score. ---");
+                System.out.print("Enter student's quiz score: ");
+                quizScore = Integer.parseInt(input.nextLine());
+            }
+        }
+
+        /*Read and accept the student's exam score wherein score cannot be lower than zero and not greater than
+        the perfect total exam score. Accepts another input.*/
+        System.out.print("Enter student's exam score: ");
+        examScore = Integer.parseInt(input.nextLine());
+        while (examScore < 0 || examScore > totalExamScore) {
+            if (examScore < 0) {
+                System.out.println("--- Invalid Value! Value must be greater than 0. ---");
+                System.out.print("Enter student's exam score: ");
+                examScore = Integer.parseInt(input.nextLine());
+            } else {
+                System.out.println("--- Invalid Value! Value cannot exceed the Perfect Total Exam Score. ---");
+                System.out.print("Enter student's exam score: ");
+                examScore = Integer.parseInt(input.nextLine());
+            }
+        }
+
+        //Computations for the exam grade, quiz grade and prelim grade.
+        examGrade = (((double) examScore / totalExamScore) * 50) + 50;
+        quizGrade = (((double) quizScore / totalQuizScore) * 50) + 50;
+        prelimGrade = (examGrade + quizGrade) / 2;
+
+        //Determine if grade is less than 65 and reset prelim grade to 65 when true.
+        if (prelimGrade < 65) {
+            prelimGrade = 65;
+        }
+
+        //Determine if grade is greater than 99 and reset prelim grade to 99 when true.
+        if (prelimGrade > 99) {
+            prelimGrade = 99;
+        }
+
+        //Display the student's prelim grade and remarks if FAILED or PASSED.
+        if (prelimGrade >= 75) {
+            System.out.println("---------------------------------------------------------");
+            System.out.println("Prelim grade is: " + prelimGrade);
+            System.out.println("Remarks: PASSED");
+            System.out.println("---------------------------------------------------------");
+        } else {
+            System.out.println("---------------------------------------------------------");
+            System.out.println("Prelim grade is: " + prelimGrade);
+            System.out.println("Remarks: FAILED");
+            System.out.println("---------------------------------------------------------");
+        }
+
+    }
+}
+

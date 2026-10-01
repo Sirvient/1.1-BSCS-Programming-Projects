@@ -1,8 +1,8 @@
 /*
 Name: PERALTA, SIRGIN JACOB I.
-Date: September 28, 2026
-Activity Name and Number: Midterm Exercise 1
------------------------------------------------------------------------
+Date: October 1, 2026
+Activity Name and Number: Midterm Exercise 1A
+-----------------------------------------------
 Problem:
 Suppose the prelim grade for a student is computed as follows:
 Given a student’s Total Quiz Score, the student’s Examination Score, the Perfect Quiz score, and the
@@ -31,6 +31,7 @@ Enter the Perfect Examination Score: 10
 Enter a student’s quiz score: 10
 Enter a student’s examination score: 1
 Grade = 65 Remark: FAILED
+
 ----------------------------------------------------------------------------------------
 Analysis of the Programming Problem
 Inputs: Total Quiz Score, Examination Score, Perfect Quiz Score, Perfect Exam Score
@@ -62,7 +63,7 @@ q. If prelimGrade is greater than or equal to 75 then display the grade together
 remark “PASSED”. r. If prelimGrade is less than 75 then display the grade together with the remark “FAILED” Required:
 Complete the following Java program for the programming problem by replacing each blank line by
 the appropriate keyword, expression or statement
-*/
+ */
 
 import java.util.Scanner;
 public class MidtermExercise1A {
@@ -71,11 +72,13 @@ public class MidtermExercise1A {
         int quizScore;          // declare an int variable to hold total quiz score
         int examScore;          // declare an int variable to hold exam score
         int perfectQuizScore;   // declare an int variable to hold perfect total quiz score
-        int perfectExamScore;   // declare an int variable to hold perfect exam score quizGrade;
-        double quizGrade;       // 1. declare a double variable to hold quiz grade. ________________ examGrade;
-        double examGrade;     // 2. declare a double variable to hold examination grade ________________ prelimGrade;
+        int perfectExamScore;   // declare an int variable to hold perfect exam score
+        double examGrade;       // 1. declare a double variable to hold quiz grade
+        double quizGrade;       // 2. declare a double variable to hold examination grade
         double prelimGrade;     // 3. declare a double variable to hold the prelim grade
-/* Accept the perfect total quiz score. The perfect score must be greater than 0. The do
+
+
+        /* Accept the perfect total quiz score. The perfect score must be greater than 0. The do
 while construct enables the computer to let the user re-enter a perfect score in case
 the value entered is invalid. */
         do {
@@ -95,6 +98,7 @@ value entered is invalid. */
                 System.out.println("Invalid value! Value must be greater than 0.");
             }
         } while (perfectExamScore <= 0);
+
 /* Accept the total quiz score. The total quiz score must not be greater than the perfect
 quiz score. The do while construct enables the computer to let the user re-enter a score
 in case the value entered is invalid. */
@@ -106,8 +110,7 @@ in case the value entered is invalid. */
             }
         } while (quizScore > perfectQuizScore);
 
-/* Accept the exam score. The exam score must not be greater than the perfect exam score.
-The do while construct enables the computer to let the user re-enter a score in case the
+/* Accept the exam score. The exam score must not be greater than the perfect exam score. The do while construct enables the computer to let the user re-enter a score in case the
 value entered is invalid. */
         do {
             System.out.print("Enter a student's examination score : ");
@@ -117,11 +120,12 @@ value entered is invalid. */
             }
         } while (examScore > perfectExamScore);
 // Compute the quiz grade
-        quizGrade = ((quizScore/perfectQuizScore) * 50) + 50; // 8
+        quizGrade = (((double)quizScore / perfectQuizScore) * 50) + 50; // 8
 // Compute the exam grade
-        examGrade = ((examScore/perfectExamScore) * 50) + 50; // 9
+        examGrade = (((double)examScore / perfectExamScore) * 50) + 50; // 9
 // Compute the subject grade
-        prelimGrade = (quizGrade + examGrade)/2; // 10
+        prelimGrade = ((double)(quizGrade + examGrade))/2; // 10
+
 // Check if prelim grade is greater than 99 then reset it to 99
         if (prelimGrade > 99) {
             prelimGrade = 99; // 11
@@ -131,12 +135,18 @@ value entered is invalid. */
             prelimGrade = 65; // 12
         }
 // Check if prelim grade is passing then display the grade together with a remark
-        if (prelimGrade >= 75) { // 13
-            System.out.println("Your grade is: " + prelimGrade); // 14
+        if (prelimGrade>= 75) { // 13
+            System.out.println("---------------------------------------");
+            System.out.println("Prelim grade is: " + prelimGrade); // 14
             System.out.println("Remark : PASSED");
-        } else {// Check if prelim grade is failing then display the grade together with a remark _____________________________________________________________________
-            System.out.println("Your grade is: "+ prelimGrade);
+            System.out.println("---------------------------------------");
+        }
+// Check if prelim grade is failing then display the grade together with a remark  // 15
+        if (prelimGrade < 75) {
+            System.out.println("---------------------------------------");
+            System.out.println("Prelim grade is: " + prelimGrade);
             System.out.println("Remark : FAILED");
+            System.out.println("---------------------------------------");
         }
         System.exit(0);
     } // end of the main method

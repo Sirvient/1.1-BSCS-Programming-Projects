@@ -28,22 +28,25 @@ perfectTotalExamScore, quizScore, examScore, quizGrade, examGrade,
 numericPrelimGrade and letterPrelimGrade that represents their 
 respective representations.
 2. Read and Accept he name of a student.
-3. Read the perfect total quiz score from the keyboard. The perfect total quiz score read must be
-validated such that it cannot be less than or equal to zero. If the user enters an invalid perfect
-total quiz score, an appropriate error message should be displayed on the screen and the program
+3. Read the perfect total quiz score from the keyboard. The perfect total
+quiz score read must be validated such that it cannot be less than or equal
+to zero. If the user enters an invalid perfect total quiz score, an
+appropriate error message should be displayed on the screen and the program
 execution should end.
-4. Read the total quiz score of the student. The total quiz score read must be validated such
-that it should not be greater than the perfect total quiz score or the it must not be less than
-zero. If the user enters an invalid total quiz score, an appropriate error message should be
+4. Read the total quiz score of the student. The total quiz score read
+must be validated such that it should not be greater than the perfect total
+quiz score or the it must not be less than zero. If the user enters an
+invalid total quiz score, an appropriate error message should be
 displayed on the screen and the program execution should end.
-5.Read the perfect score for the examination from the keyboard. The perfect score read must be
-validated such that it cannot be less than or equal to zero. If the user enters an invalid perfect
-score, an appropriate error message should be displayed on the screen and the program execution
-should end.
-6. Read the examination score of the student. The score read must be validated such that the
-score should not be greater than the perfect score or the score must not be less than zero. If
-the user enters an invalid perfect score, an appropriate error message should be displayed on the
-screen and the program execution should end.
+5.Read the perfect score for the examination from the keyboard. The perfect
+score read must be validated such that it cannot be less than or equal to zero.
+If the user enters an invalid perfect score, an appropriate error message
+should be displayed on the screen and the program execution should end.
+6. Read the examination score of the student. The score read must be
+validated such that the score should not be greater than the perfect score or
+the score must not be less than zero. If the user enters an invalid perfect
+score, an appropriate error message should be displayed on the screen and
+the program execution should end.
 7. Compute grade of the student for the quizzes through the formula:
 quizGrade = (totalQuizScore / perfectQuizScore) * 50 + 50
 8. Compute grade of the student for the examination through the formula:
@@ -67,33 +70,87 @@ public class MidtermExercise2B{
 
         //assigning of variables
         String nameOfStudent;
-        int perfectTotalQuizScore, perfectTotalExamScore, quizScore, ExamScore;
+        int perfectTotalQuizScore, perfectTotalExamScore, quizScore, examScore;
         double quizGrade, examGrade, numericPrelimGrade;
-        char letterPrelimGrade;
+        char letterPrelimGrade = 'M' ;
 
         //message prompt of what the program does
         System.out.print("This program helps you to compute the prelim grade of a student.");
         System.out.println();
-        
+
         //read and accept the name of the student
         System.out.print("Enter the name of the Student: ");
         nameOfStudent = input.nextLine();
-        
+
         //read and evaluate the perfect total quiz score
         System.out.print("Enter the perfect total quiz score: ");
         perfectTotalQuizScore = Integer.parseInt(input.nextLine());
         if (perfectTotalQuizScore <= 0) {
-            System.out.println("Invalid perfect score! The perfect score should be " +
-                    "greater than zero");
-            System.out.println("Sorry! The program needs to close. Run the program " + "again and enter correct values.");
+            System.out.println("Invalid perfect score! The perfect score should be greater than zero");
+            System.out.println("Sorry! The program needs to close. Run the program again and enter correct values.");
             System.exit(0);
         }
-        
-        // 2
 
+        //read and evaluate the student's quiz score
+        System.out.print("Enter the total quiz score of " + nameOfStudent + ":");
+        quizScore = Integer.parseInt(input.nextLine());
+        if (quizScore < 0 || quizScore > perfectTotalQuizScore) {
+            System.out.println("Invalid score. The score should not exceed the perfect score "
+                    + perfectTotalQuizScore + " and it should not be less than 0.");
+            System.out.println("Sorry! The program needs to close. Run the program again and "
+                    + "enter correct values.");
+            System.exit(0);
+        }
 
+        //read and evaluate the perfect total exam score
+        System.out.print("Enter the perfect total exam score: ");
+        perfectTotalExamScore = Integer.parseInt(input.nextLine());
+        if (perfectTotalExamScore <= 0) {
+            System.out.println("Invalid perfect score! The perfect score should be greater than zero");
+            System.out.println("Sorry! The program needs to close. Run the program again and enter correct values.");
+            System.exit(0);
+        }
 
+        //read and evaluate the student's exam score
+        System.out.print("Enter the examination score of " + nameOfStudent + ":");
+        examScore = Integer.parseInt(input.nextLine());
+        if (examScore < 0 || examScore > perfectTotalExamScore) {
+            System.out.println("Invalid score. The exam score should not exceed the perfect score " + perfectTotalExamScore + " and it should not be less than 0.");
+            System.out.println("Sorry! The program needs to close. Run the program again and enter correct values.");
+            System.exit(0);
+        }
 
+        //Computation of the quiz, exam and numeric prelim grades
+        quizGrade = (double) quizScore / perfectTotalQuizScore * 50 + 50;
+        examGrade = (double) examScore / perfectTotalExamScore * 50 + 50;
+        numericPrelimGrade = (quizGrade + examGrade) / 2 ;
 
+        //Evaluate the numeric prelim grade to determine its equivalent letter grade
+        if (numericPrelimGrade >= 50 && numericPrelimGrade < 75) {
+            letterPrelimGrade = 'D';
+        } else if (numericPrelimGrade >= 75 && numericPrelimGrade < 80) {
+            letterPrelimGrade = 'C';
+        } else if (numericPrelimGrade >= 80 && numericPrelimGrade < 90) {
+            letterPrelimGrade = 'B';
+        }else if (numericPrelimGrade >= 90 && numericPrelimGrade <= 100) {
+            letterPrelimGrade = 'A';
+        }
+
+        /* display the student's name, perfect total quiz score, quiz score, perfect total exam score,
+        exam score, quiz grade, exam grade, numeric prelim grade and letter prelim grade.
+         */
+        System.out.println();
+        System.out.printf("%-30s%20s%n", "Name of Student", nameOfStudent);
+        System.out.printf("%-30s%20d%n", "Total Quiz Score = ", quizScore);
+        System.out.printf("%-30s%20d%n", "Perfect Total Quiz Score = ", perfectTotalQuizScore);
+        System.out.printf("%-30s%20.0f%n", "Grade for the Quizzes = ", quizGrade);
+        System.out.println();
+        System.out.printf("%-30s%20d%n", "Examination Score = ", examScore);
+        System.out.printf("%-30s%20d%n", "Perfect Examination Score = ", perfectTotalExamScore);
+        System.out.printf("%-30s%20.0f%n", "Grade for the Exam = ", examGrade);
+        System.out.println();
+        System.out.printf("%-30s%20.0f%n", "Numeric Grade = ", numericPrelimGrade);
+        System.out.printf("%-30s%20c%n", "Letter Grade = ", letterPrelimGrade);
+        System.exit(0);
     }
 }

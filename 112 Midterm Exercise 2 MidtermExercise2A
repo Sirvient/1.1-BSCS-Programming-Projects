@@ -37,7 +37,8 @@ his/her quiz scores.
 his/her examination score.7. Declare and initialize the variable numericGrade that represents the numeric prelim grade of a
 student.
 8. Declare and initialize the variable letterGrade that represents the letter prelim grade of astudent.
-9. Declare and initialize the variable studentName that represents the name of a student.        10. Display a message that explains that the running program is a utility for computing the prelim
+9. Declare and initialize the variable studentName that represents the name of a student.        
+10. Display a message that explains that the running program is a utility for computing the prelim
 grade of a student.
 11. Read the name of a student
 12. Read the perfect total quiz score from the keyboard. The perfect total quiz score read must be
@@ -84,17 +85,20 @@ public class MidtermExercise2A {
 
         System.out.println("This program helps you compute the prelim grade of a student.");
         System.out.println();
+
         System.out.print("Enter the name of the student: ");                // 1
         studentName = input.nextLine();
+
+
+
         System.out.print("Enter the perfect total quiz score: ");
         perfectTotalQuizScore = Integer.parseInt(input.nextLine());               // 2
-
         if (perfectTotalQuizScore <= 0) {
-            System.out.println("Invalid perfect score! The perfect score should be " +
-                    "greater than zero");
-            System.out.println("Sorry! The program needs to close. Run the program " + "again and enter correct values.");
-                    System.exit(0);
+            System.out.println("Invalid perfect score! The perfect score should be greater than zero");
+            System.out.println("Sorry! The program needs to close. Run the program again and enter correct values.");
+            System.exit(0);
         }
+
         System.out.print("Enter the total quiz score of " + studentName + ":");
         totalQuizScore = Integer.parseInt(input.nextLine());
         if (totalQuizScore < 0 || totalQuizScore > perfectTotalQuizScore) {
@@ -104,9 +108,12 @@ public class MidtermExercise2A {
                     + "enter correct values.");
             System.exit(0);
         }
+
+
+
         System.out.print("Enter the perfect examination score: ");
         perfectExamScore = Integer.parseInt(input.nextLine()); // 3
-        if (perfectExamScore < 0) { // 4
+        if (perfectExamScore <= 0) { // 4
             System.out.println("Invalid perfect score! The perfect score should be greater than zero");
             System.out.println("Sorry! The program needs to close. Run the program again and enter correct values.");
             System.exit(0);
@@ -119,6 +126,9 @@ public class MidtermExercise2A {
             System.out.println("Sorry! The program needs to close. Run the program again and enter correct values.");
             System.exit(0);
         }
+
+
+
 
         quizGrade = (double) totalQuizScore / perfectTotalQuizScore * 50 + 50;
         examGrade = (double) examScore / perfectExamScore * 50 + 50;
@@ -134,7 +144,7 @@ public class MidtermExercise2A {
             letterGrade = 'B';
         }
         if (numericGrade >= 90 && numericGrade <= 100) {
-            letterGrade = 'B';                              // 10
+            letterGrade = 'A';                              // 10
         }
 
         System.out.println();

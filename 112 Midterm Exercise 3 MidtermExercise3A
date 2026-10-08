@@ -84,6 +84,7 @@ public class MidtermExercise3A {
         principal = Integer.parseInt(input.nextLine()); // item 2
 
         //Display the Initial principal,interest rate, and table  heading
+        System.out.println("----------------------------------------------------");
         System.out.printf("%s%.2f%n", "Principal = ", principal); // item 3
         System.out.printf("%s%.2f%c%n", "Interest Rate = ", annualRate * 100, '%');
         System.out.printf("%6s%8s%16s%30s%n", "Year", "Quarter", "Interest Earned", "Amount at end of quarter");

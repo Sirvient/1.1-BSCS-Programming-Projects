@@ -1,0 +1,96 @@
+/*
+Name: PERALTA, SIRGIN JACOB I.
+Date: October 12, 2026
+Activity Name and Number: Midterm Exercise 5
+-----------------------------------------------
+Problem:
+Note that the program requires the user to enter 10 pairs of grades and number of units.
+Note also that the program allows the user to enter invalid values.
+Note further that the computation process involved is repetitive and that the computation
+process can be handled by a loop construct.
+
+Required:
+Write another version of the program so that the following specifications are satisfied:
+ The number of pairs of grades and units is an input value at run time. Hence, the
+program may be used to compute the average of 5 grades, 8 grades, 10 grades, etc.
+ There are validation processes for the input values. Grades must be integers from 65
+to 99. The number of units must be at least 1 but not more than 12. If an input value
+is invalid, the user should be given a directive to enter another value and that
+processing will continue after the user enters a valid value.
+ The repetitive computation process is handled using an iteration construct. (while, do-while or for construct)
+ The computer will display a running average after every pair of grades and units is
+entered. The running average is the average of the grades entered so far. package Midterm.Exercises;
+-----------------------------------------------
+Input:          Number of pairs of grades and units
+                Grade
+                Units
+Process:        Read and evaluate the number of pairs of grades and units
+                Read and evaluate the grade
+                Read and evaluate the number of units
+                Calculate the total grades
+                Calculate for the total units every entry of number of units
+                Calculate for the average
+Output:         Display the average
+-----------------------------------------------
+Algorithm:
+1. Read and evaluate the number of pairs and grades\
+2. Read and evaluate the grade
+3. Read and evaluate the number of units
+4. Calculate the total grades
+5. Calculate for the total units every entry of number of units
+6. Calculate for the average
+ */
+
+import java.util.Scanner;
+
+public class MidtermExercise5 {
+    public static void main(String[] args) {
+        Scanner kbd = new Scanner(System.in);
+        int numberOfSubjects;
+        int counter = 1;
+        int grade = 0;
+        int units = 0;
+        int totalGrade = 0;
+        int totalUnits = 0;
+        double average = 0.0;
+
+        //Number of pairs of grades and units entered at run time.
+        System.out.print("Please enter the number of pairs of grades and units: ");
+        numberOfSubjects = Integer.parseInt(kbd.nextLine());
+        while(numberOfSubjects <= 0){
+            System.out.println("---- Invalid value of pairs of grades and units. Number of pairs of grades and units must be greater than 0. ----");
+            System.out.print("Please enter the number of grades to be calculated: ");
+            numberOfSubjects = Integer.parseInt(kbd.nextLine());
+        }
+
+        //"for" statement is used for repetitive execution of block until the number of pairs of grades and units are satisfied.
+        for (counter = 1; counter <= numberOfSubjects; ++counter) {
+
+            //"while" statement is used to repetitively request and accept input for the grade until value is valid.
+            System.out.print("Enter the grade of the student for the subject " + counter + ": ");
+            grade = Integer.parseInt(kbd.nextLine());
+            while (grade < 65 || grade > 99){
+                System.out.println("---- Invalid value. Grade cannot be lower than 65 and not greater than 99. ----");
+                System.out.print("Enter the grade of the student for the subject " + counter + ": ");
+                grade = Integer.parseInt(kbd.nextLine());
+            }
+
+            //"while" statement is used to repetitively request and accept input for the number of units until value provided is valid.
+            System.out.print("Enter the number of units for the subject " + counter + ": ");
+            units = Integer.parseInt(kbd.nextLine());
+            while (units < 1 || units > 12){
+                System.out.println("---- Invalid value. Number of units must be atleast 1 but not more than 12. ----");
+                System.out.print("Enter the number of units for the subject " + counter + ": ");
+                units = Integer.parseInt(kbd.nextLine());
+            }
+
+            totalGrade += grade * units;
+            totalUnits += units;
+
+            average = (double) totalGrade/totalUnits;
+            System.out.printf("%s%.2f", "Average Grade = ", average);
+            System.out.println("");
+        }
+        System.exit(0);
+    }
+}

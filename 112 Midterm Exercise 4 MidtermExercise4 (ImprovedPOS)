@@ -70,7 +70,7 @@ public class MidtermExercise4 {
         System.out.print("Product: ");
         productName = input.nextLine();
 
-        //While statement is used to repeatedly accept input as long as an invalid value is entered.
+        //Quantity must be greater than zero. While statement is used to repeatedly accept input as long as an invalid value is entered.
         System.out.print("Quantity: ");
         quantity = Integer.parseInt(input.nextLine());
         while (quantity <= 0){
@@ -79,7 +79,7 @@ public class MidtermExercise4 {
             quantity = Integer.parseInt(input.nextLine());
         }
 
-        //While statement is used to repeatedly accept input as long as an invalid value is entered.
+        //Unit price must be greater than zero. While statement is used to repeatedly accept input as long as an invalid value is entered.
         System.out.print("Unit Price: ");
         unitPrice = Double.parseDouble(input.nextLine());
         while (unitPrice <= 0){
@@ -88,7 +88,7 @@ public class MidtermExercise4 {
             unitPrice = Double.parseDouble(input.nextLine());
         }
 
-        //While statement is used to repeatedly accept input as long as an invalid value is entered.
+        //Discount cannot be a negative value and cannot be greater than 100. While statement is used to repeatedly accept input as long as an invalid value is entered.
         System.out.print("Discount: ");
         discountRate = Integer.parseInt(input.nextLine());
         while (discountRate < 0 || discountRate > 100){
@@ -101,11 +101,11 @@ public class MidtermExercise4 {
         discount = totalPurchaseAmount * (discountRate / 100.0);
         discountedTotalPurchaseAMount = totalPurchaseAmount - discount;
 
-        //While statement is used to repeatedly accept input as long as an invalid value is entered.
+        //Cash tendered cannot be lower than the amount to be paid. While statement is used to repeatedly accept input as long as an invalid value is entered.
         System.out.print("Cash Tendered: ");
         cashTendered = Double.parseDouble(input.nextLine());
         while(cashTendered < discountedTotalPurchaseAMount) {
-            System.out.println("------- Discount cannot be a negative value and cannot exceed 100. Please enter a valid number. -------");
+            System.out.println("------- Cash tendered cannot be lower than the amount to be paid. Please enter a valid number. -------");
             System.out.print("Cash Tendered: ");
             cashTendered = Double.parseDouble(input.nextLine());
         }

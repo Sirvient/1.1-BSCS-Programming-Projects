@@ -1,0 +1,86 @@
+/*
+Name: PERALTA, SIRGIN JACOB I.
+Programming Date: September 14, 2026
+Activity Name and Number: Prelim Exercise Number 5
+---------------------------------------------------------
+Write a program that will read the amount of money that will be withdrawn from an ATM (e.g. P500 or P1200)
+then compute and output the least number of peso bills (P100 peso bills, P500 peso bills, P1000 peso bills) that
+will be dispensed by the machine for the requested amount.
+
+Determine also the amount of money corresponding
+to each peso bill dispensed, the sum total of number of bills dispensed, and sum total of amounts per
+denomination as shown below.
+
+Assume that enough bills are always available from the machine. Assume
+further that the machine can only dispense P100 peso bills, P500 peso bills, and P1000 peso bills.
+---------------------------------------------------------
+Input: Withdraw amount
+Processes:  Compute the least number of peso bills to be dispensed in P100, P500 and P1000 bills.
+            Compute the amount of money to each peso bill to be dispensed.
+            Compute the sum total number of bills dispensed
+            Compute the sum total of amounts per denomination
+Output:  Bills (P100, P500 and P1000)
+        Amount of money dispensed for each peso bill
+        Total number of bills dispensed
+        Total Amount dispensed per denomination
+---------------------------------------------------------
+Algorithm:
+1. Read the input amount to be withdrawn
+2. Compute the least number the machine will withdraw for each peso bill
+3. Compute the amount for each peso bill will be dispensed
+4. Compute the total number of bills to be dispensed
+5. Display results
+*/
+
+import java.util.Scanner;
+
+public class Dispenser{
+    public static void main (String[] args){
+
+        //scanner declaration
+        Scanner input = new Scanner (System.in);
+
+        //declaration of values
+        int withdrawAmount;
+        int oneThousands;
+        int fiveHundreds;
+        int oneHundreds;
+        int total1000s;
+        int total500s;
+        int total100s;
+        int totallBills;
+        int totalAmounWithdrawn;
+
+        //withdrawAmount input
+        System.out.print("Please enter amount to withdraw: ");
+        withdrawAmount = input.nextInt();
+
+        //Computing for the number of 1000 bills
+        oneThousands = withdrawAmount/1000;
+        withdrawAmount %= 1000;
+
+        //compute for the number of 500 bills
+        fiveHundreds = withdrawAmount/500;
+        withdrawAmount %= 500;
+
+        //compute for the number of 100 bills
+        oneHundreds = withdrawAmount/100;
+
+        //compute the amount dispensed for each denomination
+        total100s = 100*oneHundreds;
+        total500s = 500*fiveHundreds;
+        total1000s = 1000*oneThousands;
+
+        //Compute the Total number of bills and total Amount
+        totallBills = oneHundreds+fiveHundreds+oneThousands;
+        totalAmounWithdrawn = total100s+total500s+total1000s;
+        //Display results
+        System.out.println("PESO BILLS          QUANTITY     AMOUNT");
+        System.out.println("==================================");
+        System.out.println("P1000                    " + oneThousands + "             " + total1000s);
+        System.out.println("P500                     " + fiveHundreds + "             " + total500s);
+        System.out.println("P100                     " + oneHundreds + "             " + total100s);
+        System.out.println("----------------------------------");
+        System.out.println("Total number of bills    " + totallBills + "             " + totalAmounWithdrawn);
+    }
+}

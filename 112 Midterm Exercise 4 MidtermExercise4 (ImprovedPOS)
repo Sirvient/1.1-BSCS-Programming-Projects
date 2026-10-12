@@ -1,0 +1,124 @@
+/*
+Name: PERALTA, SIRGIN JACOB I.
+Date: October 12, 2026
+Activity Name and Number: Midterm Exercise 4
+--------------------------------------------------------------------
+Problem:
+Write a simple Point of Sale System (POS). Only one type of product
+can be bought but in any quantity.
+
+The cashier can provide a discount, expressed as an integer value
+from 1 to 100, which indicates the percentage deducted from the total
+amount of the customer's purchase.
+
+The following should be imposed:
+- The quantity must greater than zero.
+- The unit price must be greater than zero
+- The discount rate cannot be negative and it cannot be more than 100
+- The amount tendered cannot be lower than the amount to be paid.
+
+If an input value is invalid, the user should be given an appropriate
+error message and a directive to enter another value. The user may
+repeatedly supply an invalid value. The processing should continue
+only after the user enters a valid value. Include a java comment to
+identify the changes implemented in the program.
+--------------------------------------------------------------------
+Input:      Product Name
+            Quantity
+            Unit Price
+            Discount
+            Cash Tendered
+Process:    Compute for the total purchase amount
+            Compute for the total discount
+            Compute for the amount to be paid
+            Compute for the change
+Output:     Display the total Purchase Amount
+            Display the total discount
+            Display the amount to be paid
+            Display the change
+--------------------------------------------------------------------
+Algorithm:
+1. Read and accept the product name.
+2. Read and evaluate the quantity to be bought. Quantity must be greater than zero
+3. Read and evaluate the unit price of the product. Unit price should
+be greater than zero.
+4. Read and evaluate the discount. Discount cannot be a negative value
+and cannot be greater than 100.
+5. Read and accept the cash tendered. Cash tendered cannot be lower
+than the amount to be paid.
+6. Compute for the total purchase amount.
+7. Compute for the Amount to be paid after discount.
+8. Compute for the change to be given.
+*/
+
+import java.util.Scanner;
+
+public class MidtermExercise4 {
+    public static void main(String[] args) {
+        //scanner name from kbd to input
+        Scanner input = new Scanner(System.in);
+
+        //pName to productName
+        String productName = "";
+
+        //uPrice to unitPrice, totalCost to totalPurchaseAmount, discountedCost to discountedTotalPurchaseAmount, amountTendered to cashTendered
+        double unitPrice, totalPurchaseAmount, discount, discountedTotalPurchaseAMount, cashTendered, change;
+
+        //qty to quantity, dRate to discountedRate
+        int quantity, discountRate;
+
+        System.out.print("Product: ");
+        productName = input.nextLine();
+
+        //While statement is used to repeatedly accept input as long as an invalid value is entered.
+        System.out.print("Quantity: ");
+        quantity = Integer.parseInt(input.nextLine());
+        while (quantity <= 0){
+            System.out.println("------- Quantity should be greater than zero. Please enter a valid number. -------");
+            System.out.print("Quantity: ");
+            quantity = Integer.parseInt(input.nextLine());
+        }
+
+        //While statement is used to repeatedly accept input as long as an invalid value is entered.
+        System.out.print("Unit Price: ");
+        unitPrice = Double.parseDouble(input.nextLine());
+        while (unitPrice <= 0){
+            System.out.println("------- Unit Price must be greater than zero. Please enter a valid number. -------");
+            System.out.print("Unit Price: ");
+            unitPrice = Double.parseDouble(input.nextLine());
+        }
+
+        //While statement is used to repeatedly accept input as long as an invalid value is entered.
+        System.out.print("Discount: ");
+        discountRate = Integer.parseInt(input.nextLine());
+        while (discountRate < 0 || discountRate > 100){
+            System.out.println("------- Discount cannot be a negative value and cannot exceed 100. Please enter a valid number. -------");
+            System.out.print("Discount: ");
+            discountRate = Integer.parseInt(input.nextLine());
+        }
+
+        totalPurchaseAmount = unitPrice * quantity;
+        discount = totalPurchaseAmount * (discountRate / 100.0);
+        discountedTotalPurchaseAMount = totalPurchaseAmount - discount;
+
+        //While statement is used to repeatedly accept input as long as an invalid value is entered.
+        System.out.print("Cash Tendered: ");
+        cashTendered = Double.parseDouble(input.nextLine());
+        while(cashTendered < discountedTotalPurchaseAMount) {
+            System.out.println("------- Discount cannot be a negative value and cannot exceed 100. Please enter a valid number. -------");
+            System.out.print("Cash Tendered: ");
+            cashTendered = Double.parseDouble(input.nextLine());
+        }
+
+        change = cashTendered - discountedTotalPurchaseAMount;
+
+        System.out.printf("%-25s%12s%n", "---------------", "--------------");
+                System.out.printf("%-25s%12.2f%n", "Total Purchase Amount: ",
+                        totalPurchaseAmount);
+        System.out.printf("%-25s%12.2f%n", "Total Discount: ", discount);
+        System.out.printf("%-25s%12.2f%n", "Amount to be Paid: ",
+                discountedTotalPurchaseAMount);
+        System.out.printf("%-25s%12.2f%n", "change: ", change);
+        System.exit(0);
+    } // end of main method
+} // end of class

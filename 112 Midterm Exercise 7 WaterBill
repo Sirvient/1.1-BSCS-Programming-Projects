@@ -1,0 +1,135 @@
+/*
+Name: PERALTA, SIRGIN JACOB I.
+Date: October 19, 2026
+Activity Name and Number: Midterm Exercise 7
+-----------------------------------------------------------------
+PROBLEM:
+(Simplified Water Bill Computation)
+The bill for a water service subscriber is prepared as follows:
+1. Read the name of the water consumer
+2. Read the previous water meter reading in cubic meters (reading last month) from the
+consumer’s meter. The meter reading cannot be less than zero.
+3. Read the present water meter reading in cubic meters (reading this month) from the
+consumer’s meter. The present water meter reading cannot be less than the previous water
+meter reading.
+4. Compute the volume of water consumed (consumption = CMUSed) by subtracting the
+previous reading from the present reading.
+5. Read the classification of the consumer (c for commercial or r for residential)
+6. Compute the amount due from the consumer. The amount due is computed based on the
+following:
+
+For residential consumers
+If Cubic Meters Consumed is                 then Amount Due (pesos)
+========================================================================
+Less than or equal to 12                    180.00
+More than 12                                180.00 + (cubicMetersConsumed – 12) * 30.00
+
+For commercial consumers
+If Cubic Meters Consumed is                 then Amount Due (pesos)
+========================================================================
+Less than or equal to 30                    600.00
+More than 30                                600.00 + (cubicMetersConsumed – 30) * 50.00
+
+7. Print a bill statement. The bill statement should show the name of the subscriber, the
+readings, the consumption and the amount due.
+-----------------------------------------------------------------
+INPUT:      Water Consumer
+            Previous water meter reading
+            Present water meter reading
+            Consumer classification
+PROCESS:    Compute the volume of water consumed
+            Compute amount of due
+OUTPUT:     Bill Statement
+-----------------------------------------------------------------
+ALGORITHM:
+1. Read and accept the name of the consumer
+2. Read and evaluate the previous water meter reading in cubic meters.
+Meter reading cannot be less than zero.
+3. Read and evaluate the present water meter reading in cubic meters.
+Present meter reading cannot be less than the previous water meter reading.
+4. Compute the volume of water consumed.
+5. Read and accept the consumer classification.
+6. Compute amount due.
+7. Print bill statement.
+*/
+
+
+import java.util.Scanner;
+
+public class WaterBill {
+    public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
+
+        String consumerName;                                // to hold name of consumer
+        char consumerType = 'a';                            // to hold type of consumer
+        int presentReading = -1, previousReading = -1;      // to hold the present and previous reading
+        int waterConsumed;                                  // to hold number of cubic meters of water used
+
+        int residentialMinimumVolume = 12;                  // to hold cut-off for minimum Bill for residential consumer
+        double residentialMinimumBill = 180.00;             // minimum bill 12 Cubic Meters used
+        float residentialRate = 30.00F;                     // cost of 1 Cubic Meter above the min. consumption
+
+        int commercialMinimumVolume = 30;                   // to hold cut-off for minimum Bill for commercial consumers
+        double commercialMinimumBill = 600.00;              // minimum bill  20 Cubic Meters used
+        float commercialRate = 50.00F;                      // cost of 1 Cubic Meter above the min. consumption for commercial consumers
+
+        double amountDue;                                   // to hold the amount due
+
+        //Read and accept the consumer name
+        System.out.print("Enter the consumer's name: ");
+        consumerName = input.nextLine();
+
+
+        //Read and evaluate the previous water reading of the consumer
+        while (previousReading < 0){
+            System.out.print("Enter the previous water reading of the consumer: ");
+
+            if (input.hasNextInt()){
+                previousReading = Integer.parseInt(input.nextLine());
+
+                if (previousReading < 0){
+                    System.out.println("--- Invalid Value. Previous water reading cannot be less than zero. ---");
+                }
+
+            } else {
+                System.out.println("--- Invalid Value. Previous water reading must be a numerical value. ---");
+                input.nextLine();
+            }
+        }
+
+
+        //Read and evaluate the present water reading of the consumer
+        while (presentReading < 0){
+            System.out.print("Enter the present water reading of the consumer: ");
+
+            if (input.hasNextInt()){
+                presentReading = Integer.parseInt(input.nextLine());
+
+                if (presentReading < 0){
+                    System.out.println("--- Invalid Value. Present water reading cannot be less than zero. ---");
+                }
+
+            } else {
+                System.out.println("--- Invalid Value. Present water reading must be a numerical value. ---");
+                input.nextLine();
+            }
+        }
+
+        // Check and validate consumer classification
+        while (consumerType != 'r' || consumerType != 'R'||consumerType != 'c'||consumerType != 'C'){
+            System.out.print("Enter the consumer type - [R]esidential or [C]ommercial: ");
+            consumerType = input.next().toLowerCase().charAt(0);
+            if (consumerType == 'r' || consumerType == 'R') {
+                System.out.println("Selected: Residential");
+            } else if (consumerType == 'c' || consumerType == 'C') {
+                System.out.println("Selected: Commercial");
+            } else {
+                System.out.println("Invalid consumer classification.");
+            }
+        }
+
+
+// insert statements below…
+    } // end of main
+} // end of class

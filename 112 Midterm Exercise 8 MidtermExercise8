@@ -1,0 +1,70 @@
+/*
+Name: PERALTA, SIRGIN JACOB I.
+Date: October 22, 2026
+Activity Name and Number: Midterm Exercise 9
+-----------------------------------------------
+Problem:
+the program allows
+the computer to determine and show the roots of a quadratic equation after the computer is
+given the numerical coefficients of the quadratic equation. Note further that if the roots of the
+quadratic equation are imaginary, the program gives a String representation of the imaginary
+roots. The given program is written such that aside from the main method, other methods are
+included. However, you may not mind the other methods at this point. Focus on seeing and
+understanding sample runs of the program.
+
+Rewrite the following program such that the program has only the main method. The re-written
+program should have the same result/output as the given program.
+-----------------------------------------------
+INPUT:      Coefficients of a quadratic equation
+PROCESS:    Compute for the roots of the quadratic equation
+OUTPUT:     Display the roots of the quadratic equation
+-----------------------------------------------
+Algorithm:
+1. Read and accept the first coefficient of the quadratic equation.
+2. Read and accept the second coefficient of the quadratic equation.
+3. Read and accept the third coefficient of the quadratic equation.
+4. Determine the roots of the quadratic equation. If the roots are imaginary,
+a string representation is provided for it.
+5. Display the results
+ */
+
+import java.util.Scanner;
+
+public class MidtermExercise8 {
+    public static void main(String[] args) {
+        Scanner kbd = new Scanner(System.in);
+
+        // Display heading
+        System.out.println("This program helps you solve for the roots of a Quadratic Equation.");
+        System.out.println("You should enter the coefficients of the quadratic equation");
+
+        // Read coefficients
+        System.out.print("Enter a: ");
+        double a = Double.parseDouble(kbd.nextLine());
+        System.out.print("Enter b: ");
+        double b = Double.parseDouble(kbd.nextLine());
+        System.out.print("Enter c: ");
+        double c = Double.parseDouble(kbd.nextLine());
+
+        double discriminant = b * b - 4 * a * c;
+
+        if (discriminant >= 0) {
+            // Compute and show real roots
+            double root1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+            double root2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+            System.out.println("The roots are: " + root1 + " and " + root2 + ".");
+        } else {
+            // Compute and show imaginary roots
+            double realPart = -b / (2 * a);
+            double imaginaryPart = Math.sqrt(-1 * discriminant) / (2 * a);
+
+            String root1 = realPart + " + " + imaginaryPart + "i";
+            String root2 = realPart + " - " + imaginaryPart + "i";
+
+            System.out.println("The imaginary roots are: " + root1 + " and " + root2 + ".");
+        }
+
+        kbd.close();
+        System.exit(0);
+    }
+}

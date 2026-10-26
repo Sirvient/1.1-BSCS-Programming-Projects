@@ -1,0 +1,96 @@
+/*
+Name: PERALTA, SIRGIN JACOB I.
+Date: October 26, 2026
+Activity Name and Number: Midterm Exercise 9
+-----------------------------------------------
+Problem:
+Study, debug if needed, test, trace and improve the following program.
+(Be able to explain some methods of the String class.)
+-----------------------------------------------
+INPUT:      Personal first name
+            Someone's first name
+PROCESS:    Generate new names
+OUTPUT:     Display generated names
+-----------------------------------------------
+Algorithm:
+1. Read and accept the first name of the user.
+2. Read and accept someone else's name.
+3. Combine someone's name to the user's first name
+4. Combine the first name to someone's name
+5. Combine the last two letters of someone's name
+to the first 2 letters of the user's first name.
+6. Combine the first 2 letters of the user's first
+name to the last two letters of someone's name.
+7. Generate a random index for the user's first name.
+Pick the character at that random index from the user's
+first name. Generate a random index for someone else's
+name.Pick the character at that random index from someone
+else's name.Alternate picking random characters between
+both names for a given count $N$ to create a new mixed name.
+8. Display or return the generated name results to the user.
+ */
+
+import java.util.Scanner;
+import java.util.Random;
+
+public class NameGenerator {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        String name1, name2;
+
+        System.out.print("Enter your first name: ");
+        name1 = input.nextLine();
+        System.out.print("Enter someone's first name: ");
+        name2 = input.nextLine();
+
+        System.out.println("Possible names of your proteges:");
+        System.out.println("1. " + formName1(name1, name2));
+        System.out.println("2. " + formName1(name2, name1));
+        System.out.println("3. " + formName3(name2, name1));
+        System.out.println("4. " + formName3(name1, name2));
+        System.out.println("5. " + formName5(name1, name2, 5));
+        System.out.println("6. " + formName5(name2, name1, 5));
+
+        input.close();
+        System.exit(0);
+    } // end of main method
+
+
+    // Returns the string formed by concatenating the two strings name1 and name2.
+    public static String formName1(String name1, String name2) {
+        String result = "";
+        result = name1.concat(name2);
+        return result;
+    }
+
+
+    /* Returns the string formed by concatenating the first 2 characters of name1
+    to the last two characters of name2. */
+    public static String formName3(String name1, String name2) {
+        String result = "";
+        result = name1.substring(0, 2).concat(name2.substring(name2.length() - 2));
+        return result;
+    }
+
+
+    /* Returns a string with length n formed by concatenating characters that are
+    alternately taken from random positions of the two strings name1 and name2. */
+    public static String formName5(String name1, String name2, int n) {
+        String result = "";
+        Random generate = new Random();
+        int location = 0;
+
+        for (int x = 0; x < n; x++) {
+            if (x % 2 == 0) {
+                location = generate.nextInt(name1.length());
+                result = result + name1.charAt(location);
+            } else {
+                location = generate.nextInt(name2.length());
+                result = result + name2.charAt(location);
+            }
+        } // end of for
+
+        return result;
+
+    } // end of formName5 method
+} // end of class

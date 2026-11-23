@@ -1,0 +1,495 @@
+import java.util.Scanner;
+
+public class HotelReservationSystem {
+
+    // Constants for simulation configuration
+    static final int TOTAL_ROOMS = 30;
+    static final int TOTAL_DAYS = 10;
+    static final double SERVICE_FEE = 250.00;
+    static final double TAX_RATE = 0.10;
+
+    // 1D Parallel Arrays for Room Catalog / Inventory
+    static String[] roomNumbers = new String[TOTAL_ROOMS];
+    static String[] roomTypes = new String[TOTAL_ROOMS];
+    static double[] roomRates = new double[TOTAL_ROOMS];
+
+    // 2D Arrays for 10-Day Guest Reservations & Occupancy Status
+    // Status values: "Available", "Booked", "Occupied"
+    static String[] simulationDates = new String[TOTAL_DAYS];
+    static String[][] roomStatus = new String[TOTAL_ROOMS][TOTAL_DAYS];
+    static String[][] guestNames = new String[TOTAL_ROOMS][TOTAL_DAYS];
+
+    // Tracking active stay details per room for Check-Out billing
+    static String[] activeGuest = new String[TOTAL_ROOMS];
+    static int[] activeNights = new int[TOTAL_ROOMS];
+    static double[] activeSubtotal = new double[TOTAL_ROOMS];
+
+    static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        initializeSystem();
+        mainMenu();
+    }
+
+    // Initializes the 30 rooms, 10 dates, and sets all slots to "Available"
+    public static void initializeSystem() {
+        // Set 10-day simulation dates (customizable)
+        String[] dates = {
+                "Nov 24", "Nov 25", "Nov 26", "Nov 27", "Nov 28",
+                "Nov 29", "Nov 30", "Dec 01", "Dec 02", "Dec 03"
+        };
+        for (int d = 0; d < TOTAL_DAYS; d++) {
+            simulationDates[d] = dates[d];
+        }
+
+        // Standard Rooms: 15 Rooms (S101 - S115) @ 2,500/night
+        for (int i = 0; i < 15; i++) {
+            roomNumbers[i] = "S" + (101 + i);
+            roomTypes[i] = "Standard";
+            roomRates[i] = 2500.00;
+        }
+
+        // Deluxe Rooms: 10 Rooms (D101 - D110) @ 4,000/night
+        for (int i = 15; i < 25; i++) {
+            roomNumbers[i] = "D" + (101 + (i - 15));
+            roomTypes[i] = "Deluxe";
+            roomRates[i] = 4000.00;
+        }
+
+        // Suite Rooms: 5 Rooms (T101 - T105) @ 8,000/night
+        for (int i = 25; i < 30; i++) {
+            roomNumbers[i] = "T" + (101 + (i - 25));
+            roomTypes[i] = "Suite";
+            roomRates[i] = 8000.00;
+        }
+
+        // Initialize all rooms across all 10 days as "Available"
+        for (int r = 0; r < TOTAL_ROOMS; r++) {
+            activeGuest[r] = null;
+            activeNights[r] = 0;
+            activeSubtotal[r] = 0.0;
+            for (int d = 0; d < TOTAL_DAYS; d++) {
+                roomStatus[r][d] = "Available";
+                guestNames[r][d] = "";
+            }
+        }
+    }
+
+    // =========================================================================
+    // PROCESS 1: MAIN MENU
+    // =========================================================================
+    public static void mainMenu() {
+        int choice = 0;
+        do {
+            System.out.println("\n=============================================");
+            System.out.println("       Welcome to the Grand Hotel System     ");
+            System.out.println("=============================================");
+            System.out.println("Please select an option:");
+            System.out.println("1. Check Room Availability");
+            System.out.println("2. Make New Reservation");
+            System.out.println("3. Check-In Guest (Walk-in)");
+            System.out.println("4. Check-Out Guest / Generate Bill");
+            System.out.println("5. Exit");
+            System.out.print("Enter your choice (1-5): ");
+
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                scanner.nextLine(); // consume newline
+            } else {
+                scanner.nextLine();
+                System.out.println("Invalid input. Please enter a number from 1 to 5.");
+                continue;
+            }
+
+            switch (choice) {
+                case 1:
+                    checkRoomAvailability();
+                    break;
+                case 2:
+                    makeNewReservation();
+                    break;
+                case 3:
+                    checkInGuest();
+                    break;
+                case 4:
+                    checkOutGuest();
+                    break;
+                case 5:
+                    System.out.println("Thank you for using the Grand Hotel System. Goodbye!");
+                    break;
+                default:
+                    System.out.println("Invalid option. Please choose between 1 and 5.");
+            }
+        } while (choice != 5);
+    }
+
+    // =========================================================================
+    // PROCESS 2: CHECK ROOM AVAILABILITY
+    // =========================================================================
+    public static void checkRoomAvailability() {
+        String selectedType = promptRoomType();
+        if (selectedType == null) return;
+
+        int totalTypeRooms = 0;
+        int availableRoomsCount = 0;
+        double rate = 0;
+
+        for (int r = 0; r < TOTAL_ROOMS; r++) {
+            if (roomTypes[r].equalsIgnoreCase(selectedType)) {
+                totalTypeRooms++;
+                rate = roomRates[r];
+                // Count as available if not currently 'Occupied' on Day 1
+                boolean isOccupiedToday = roomStatus[r][0].equals("Occupied");
+                if (!isOccupiedToday) {
+                    availableRoomsCount++;
+                }
+            }
+        }
+
+        System.out.println("\n--- Room Availability Status ---");
+        System.out.println("Room Type: " + selectedType);
+        System.out.println("Total Rooms: " + totalTypeRooms);
+        System.out.println("Available Rooms: " + availableRoomsCount);
+        System.out.printf("Price per Night: P%,.2f%n", rate);
+
+        displayScheduleGrid(selectedType);
+    }
+
+    // =========================================================================
+    // PROCESS 3: MAKE NEW RESERVATION
+    // =========================================================================
+    public static void makeNewReservation() {
+        System.out.print("\nInput Guest Name: ");
+        String guestName = scanner.nextLine().trim();
+        if (guestName.isEmpty()) {
+            System.out.println("Guest name cannot be empty.");
+            return;
+        }
+
+        String selectedType = promptRoomType();
+        if (selectedType == null) return;
+
+        displayScheduleGrid(selectedType);
+
+        System.out.print("\nInput number of nights: ");
+        int nights = scanner.nextInt();
+        scanner.nextLine();
+
+        if (nights < 1 || nights > TOTAL_DAYS) {
+            System.out.println("Invalid number of nights (must be between 1 and 10).");
+            return;
+        }
+
+        int[] selectedDayIndices = new int[nights];
+        System.out.println("Select Day numbers (1 to 10) for your stay:");
+        for (int i = 0; i < nights; i++) {
+            System.out.print("Date " + (i + 1) + " (Day 1-10): ");
+            int dayNum = scanner.nextInt();
+            scanner.nextLine();
+            if (dayNum < 1 || dayNum > TOTAL_DAYS) {
+                System.out.println("Invalid day selected. Reservation cancelled.");
+                return;
+            }
+            selectedDayIndices[i] = dayNum - 1;
+        }
+
+        System.out.println("\nProcessing Reservation...");
+        int assignedRoomIndex = -1;
+
+        // Find the first room of the requested type where all chosen dates are "Available"
+        for (int r = 0; r < TOTAL_ROOMS; r++) {
+            if (roomTypes[r].equalsIgnoreCase(selectedType)) {
+                boolean allDatesFree = true;
+                for (int dIdx : selectedDayIndices) {
+                    if (!roomStatus[r][dIdx].equals("Available")) {
+                        allDatesFree = false;
+                        break;
+                    }
+                }
+                if (allDatesFree) {
+                    assignedRoomIndex = r;
+                    break;
+                }
+            }
+        }
+
+        if (assignedRoomIndex == -1) {
+            System.out.println("Sorry, no " + selectedType + " rooms are available for all selected dates.");
+            return;
+        }
+
+        String assignedRoomNum = roomNumbers[assignedRoomIndex];
+        double nightlyRate = roomRates[assignedRoomIndex];
+        double reservationFee = nightlyRate * nights;
+
+        System.out.println("Found: " + assignedRoomNum + ".");
+        System.out.printf("Reservation Fee (Room Rate Only): P%,.2f/night * %d nights = P%,.2f%n",
+                nightlyRate, nights, reservationFee);
+
+        // Process Payment (Process 6)
+        if (processPayment(reservationFee, "Reservation for " + assignedRoomNum)) {
+            for (int dIdx : selectedDayIndices) {
+                roomStatus[assignedRoomIndex][dIdx] = "Booked";
+                guestNames[assignedRoomIndex][dIdx] = guestName;
+            }
+            // Store active reservation details
+            activeGuest[assignedRoomIndex] = guestName;
+            activeNights[assignedRoomIndex] = nights;
+            activeSubtotal[assignedRoomIndex] = reservationFee;
+
+            System.out.println("\n--- Reservation Summary ---");
+            System.out.println("Guest Name: " + guestName);
+            System.out.println("Room Type: " + selectedType);
+            System.out.println("Room Number Assigned: " + assignedRoomNum);
+            System.out.println("Nights Booked: " + nights);
+            System.out.printf("Total Reservation Fee Paid: P%,.2f%n", reservationFee);
+            System.out.println("Update Status: Room " + assignedRoomNum + " is now set to 'Booked' by " + guestName + ".");
+        } else {
+            System.out.println("Reservation aborted due to failed payment.");
+        }
+    }
+
+    // =========================================================================
+    // PROCESS 4: CHECK-IN GUEST (WALK-IN)
+    // =========================================================================
+    public static void checkInGuest() {
+        System.out.print("\nInput Guest Name (Walk-in): ");
+        String guestName = scanner.nextLine().trim();
+        if (guestName.isEmpty()) {
+            System.out.println("Guest name cannot be empty.");
+            return;
+        }
+
+        String selectedType = promptRoomType();
+        if (selectedType == null) return;
+
+        System.out.print("Input Nights Booked (1-10): ");
+        int nights = scanner.nextInt();
+        scanner.nextLine();
+
+        if (nights < 1 || nights > TOTAL_DAYS) {
+            System.out.println("Invalid number of nights.");
+            return;
+        }
+
+        double rate = getRateByType(selectedType);
+        System.out.printf("\nProcessing Walk-in Check-In... Checking for available %s rooms (P%,.2f/night)...%n",
+                selectedType, rate);
+
+        // Find first room available from Day 1 (index 0) for 'nights' consecutive days
+        int assignedRoomIndex = -1;
+        for (int r = 0; r < TOTAL_ROOMS; r++) {
+            if (roomTypes[r].equalsIgnoreCase(selectedType)) {
+                boolean isFree = true;
+                for (int d = 0; d < nights; d++) {
+                    if (!roomStatus[r][d].equals("Available")) {
+                        isFree = false;
+                        break;
+                    }
+                }
+                if (isFree) {
+                    assignedRoomIndex = r;
+                    break;
+                }
+            }
+        }
+
+        if (assignedRoomIndex == -1) {
+            System.out.println("No available " + selectedType + " rooms for immediate walk-in check-in.");
+            return;
+        }
+
+        String roomNum = roomNumbers[assignedRoomIndex];
+        double roomOnlyTotal = rate * nights;
+
+        System.out.println("Found: " + roomNum + ".");
+        System.out.printf("Room Charge (Room Only, P%,.2f * %d): P%,.2f%n", rate, nights, roomOnlyTotal);
+
+        // Process Payment (Process 6)
+        if (processPayment(roomOnlyTotal, "Walk-In Check-In for " + roomNum)) {
+            for (int d = 0; d < nights; d++) {
+                roomStatus[assignedRoomIndex][d] = "Occupied";
+                guestNames[assignedRoomIndex][d] = guestName;
+            }
+            activeGuest[assignedRoomIndex] = guestName;
+            activeNights[assignedRoomIndex] = nights;
+            activeSubtotal[assignedRoomIndex] = roomOnlyTotal;
+
+            System.out.println("Update Status: Room " + roomNum + " is now set to 'Occupied' by " + guestName + ".");
+            System.out.println("--- Check-In Successful ---");
+            System.out.println("Guest " + guestName + " is now occupying Room " + roomNum + " for " + nights + " night(s).");
+        } else {
+            System.out.println("Check-In failed due to insufficient payment.");
+        }
+    }
+
+    // =========================================================================
+    // PROCESS 5: CHECK-OUT GUEST / GENERATE BILL
+    // =========================================================================
+    public static void checkOutGuest() {
+        System.out.print("\nInput Room Number for Check-Out (e.g., S101, D101, T101): ");
+        String inputRoom = scanner.nextLine().trim().toUpperCase();
+
+        int roomIndex = -1;
+        for (int r = 0; r < TOTAL_ROOMS; r++) {
+            if (roomNumbers[r].equalsIgnoreCase(inputRoom)) {
+                roomIndex = r;
+                break;
+            }
+        }
+
+        if (roomIndex == -1) {
+            System.out.println("Error: Room " + inputRoom + " does not exist.");
+            return;
+        }
+
+        // Check if room is currently Occupied or Booked
+        boolean hasActiveBooking = false;
+        String currentGuest = activeGuest[roomIndex];
+        for (int d = 0; d < TOTAL_DAYS; d++) {
+            if (roomStatus[roomIndex][d].equals("Occupied") || roomStatus[roomIndex][d].equals("Booked")) {
+                hasActiveBooking = true;
+                if (currentGuest == null || currentGuest.isEmpty()) {
+                    currentGuest = guestNames[roomIndex][d];
+                }
+            }
+        }
+
+        if (!hasActiveBooking) {
+            System.out.println("Room " + inputRoom + " is currently Available. No guest to check out.");
+            return;
+        }
+
+        System.out.println("Verifying Check-Out for " + inputRoom + "...");
+
+        double subtotal = activeSubtotal[roomIndex];
+        // Fallback calculation if subtotal wasn't recorded
+        if (subtotal == 0) {
+            int countDays = 0;
+            for (int d = 0; d < TOTAL_DAYS; d++) {
+                if (!roomStatus[roomIndex][d].equals("Available")) countDays++;
+            }
+            subtotal = countDays * roomRates[roomIndex];
+        }
+
+        double subtotalWithFee = subtotal + SERVICE_FEE;
+        double taxAmount = subtotalWithFee * TAX_RATE;
+        double totalAmountDue = subtotalWithFee + taxAmount;
+
+        System.out.println("\n--- Bill Calculation ---");
+        System.out.printf("Subtotal (Room Rate Only): P%,.2f%n", subtotal);
+        System.out.printf("Fixed Service Fee: P%,.2f%n", SERVICE_FEE);
+        System.out.printf("Subtotal + Fee: P%,.2f%n", subtotalWithFee);
+        System.out.printf("Tax (10%% of P%,.2f): P%,.2f%n", subtotalWithFee, taxAmount);
+        System.out.printf("Total Amount Due: P%,.2f + P%,.2f = P%,.2f%n", subtotalWithFee, taxAmount, totalAmountDue);
+
+        System.out.print("\nInput Final Payment Amount: ");
+        double amountPaid = scanner.nextDouble();
+        scanner.nextLine();
+
+        if (amountPaid < totalAmountDue) {
+            System.out.printf("Payment Failed! Insufficient amount. Short by P%,.2f.%n", (totalAmountDue - amountPaid));
+            return;
+        }
+
+        double changeDue = amountPaid - totalAmountDue;
+        System.out.printf("Payment: P%,.2f received.%n", amountPaid);
+        System.out.printf("Change Calculation: P%,.2f - P%,.2f = P%,.2f%n", amountPaid, totalAmountDue, changeDue);
+
+        // Print Final Receipt
+        System.out.println("\n--- Final Bill / Receipt ---");
+        System.out.println("Guest: " + currentGuest + " | Room: " + inputRoom);
+        System.out.printf("Subtotal: P%,.2f%n", subtotal);
+        System.out.printf("Service Fee: P%,.2f%n", SERVICE_FEE);
+        System.out.printf("Tax (10%%): P%,.2f%n", taxAmount);
+        System.out.printf("TOTAL AMOUNT DUE: P%,.2f%n", totalAmountDue);
+        System.out.printf("Amount Paid: P%,.2f%n", amountPaid);
+        System.out.printf("Change Due: P%,.2f%n", changeDue);
+
+        // Reset room status to Available across all days
+        for (int d = 0; d < TOTAL_DAYS; d++) {
+            roomStatus[roomIndex][d] = "Available";
+            guestNames[roomIndex][d] = "";
+        }
+        activeGuest[roomIndex] = null;
+        activeNights[roomIndex] = 0;
+        activeSubtotal[roomIndex] = 0.0;
+
+        System.out.println("Check-Out Complete. Room " + inputRoom + " is now available.");
+    }
+
+    // =========================================================================
+    // PROCESS 6: PAYMENT SIMULATION
+    // =========================================================================
+    public static boolean processPayment(double amountDue, String transactionDetails) {
+        System.out.printf("Input Payment (P%,.2f): ", amountDue);
+        double payment = scanner.nextDouble();
+        scanner.nextLine();
+
+        if (payment < amountDue) {
+            System.out.println("Payment Failed! Amount entered is less than the required total.");
+            return false;
+        }
+
+        double change = payment - amountDue;
+        System.out.println("Payment Successful!");
+        if (change > 0) {
+            System.out.printf("Change Due: P%,.2f%n", change);
+        }
+        System.out.println("Transaction Confirmed (" + transactionDetails + ")");
+        return true;
+    }
+
+    // =========================================================================
+    // HELPER METHODS
+    // =========================================================================
+    private static String promptRoomType() {
+        System.out.print("Input Room Type (1. Standard, 2. Deluxe, 3. Suite): ");
+        if (!scanner.hasNextInt()) {
+            scanner.nextLine();
+            System.out.println("Invalid room type selection.");
+            return null;
+        }
+        int typeChoice = scanner.nextInt();
+        scanner.nextLine();
+
+        switch (typeChoice) {
+            case 1: return "Standard";
+            case 2: return "Deluxe";
+            case 3: return "Suite";
+            default:
+                System.out.println("Invalid choice. Select 1, 2, or 3.");
+                return null;
+        }
+    }
+
+    private static double getRateByType(String type) {
+        switch (type.toLowerCase()) {
+            case "standard": return 2500.00;
+            case "deluxe": return 4000.00;
+            case "suite": return 8000.00;
+            default: return 0.0;
+        }
+    }
+
+    private static void displayScheduleGrid(String selectedType) {
+        System.out.println("\n10-Day Room Schedule (" + selectedType + "):");
+        System.out.printf("%-6s", "Room");
+        for (int d = 0; d < TOTAL_DAYS; d++) {
+            System.out.printf("| %-9s", "Day" + (d + 1));
+        }
+        System.out.println();
+        System.out.println("----------------------------------------------------------------------------------------------------------------");
+
+        for (int r = 0; r < TOTAL_ROOMS; r++) {
+            if (roomTypes[r].equalsIgnoreCase(selectedType)) {
+                System.out.printf("%-6s", roomNumbers[r]);
+                for (int d = 0; d < TOTAL_DAYS; d++) {
+                    String statusDisplay = roomStatus[r][d].equals("Available") ? "" : roomStatus[r][d];
+                    System.out.printf("| %-9s", statusDisplay);
+                }
+                System.out.println();
+            }
+        }
+    }
+}
